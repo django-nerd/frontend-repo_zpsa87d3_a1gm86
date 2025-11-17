@@ -4,43 +4,60 @@
 
 @layer base {
   :root {
-    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-geist: 'Geist', system-ui, sans-serif;
-    --font-geist-mono: 'Geist Mono', monospace;
-    --font-mona: 'Mona Sans', system-ui, sans-serif;
-    --font-ibm-plex: 'IBM Plex Sans', system-ui, sans-serif;
-    --font-manrope: 'Manrope', system-ui, sans-serif;
+    /* Brand palette */
+    --soft-amber: #ccc0b5;
+    --pearl-bush: #e8ddd0;
+    --cod-gray: #151414;
+    --bronco: #ada296;
+    --birch: #3f3428;
+    --tuatara: #262524;
+    --sisal: #cdc2b6;
+    --squirrel: #91877c;
+    --soya-bean: #5e5448;
+
+    /* Fonts */
+    --font-sans: 'Inter', 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   html {
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
+    color-scheme: dark;
   }
 
   body {
     @apply antialiased;
+    background: radial-gradient(1000px 600px at 80% -10%, rgba(205,194,182,0.15), transparent 60%),
+                radial-gradient(800px 500px at 0% 0%, rgba(38,37,36,0.6), transparent 60%),
+                var(--cod-gray);
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--soft-amber) 40%, white);
+    color: var(--birch);
   }
 }
 
-/* Custom utility classes for shadcn/ui patterns */
-@layer utilities {
-  .animate-in {
-    animation-name: animateIn;
-    animation-duration: 350ms;
-    --tw-enter-opacity: initial;
-    --tw-enter-scale: initial;
-    --tw-enter-rotate: initial;
-    --tw-enter-translate-x: initial;
-    --tw-enter-translate-y: initial;
+/* Glass + card tokens */
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
   }
+  .btn-gold {
+    background-image: linear-gradient(135deg, var(--soft-amber), var(--pearl-bush));
+    color: var(--birch);
+    @apply rounded-xl font-medium shadow-lg hover:shadow-xl transition-shadow;
+  }
+}
 
-  .animate-out {
-    animation-name: animateOut;
-    animation-duration: 350ms;
-    --tw-exit-opacity: initial;
-    --tw-exit-scale: initial;
-    --tw-exit-rotate: initial;
-    --tw-exit-translate-x: initial;
-    --tw-exit-translate-y: initial;
+/* Subtle enter animations */
+@layer utilities {
+  .fade-up {
+    animation: fadeUp 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
